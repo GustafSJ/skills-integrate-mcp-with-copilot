@@ -155,6 +155,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Student Profile Form Elements
+  const profileForm = document.getElementById("student-profile-form");
+  const profileMessage = document.getElementById("profile-message");
+  const profileDisplay = document.getElementById("profile-display");
+
+  if (profileForm) {
+    profileForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = document.getElementById("profile-email").value;
+      const name = document.getElementById("profile-name").value;
+      const grade = document.getElementById("profile-grade").value;
+      const achievements = document.getElementById("profile-achievements").value.split(",").map(s => s.trim()).filter(Boolean);
+      const leadership = document.getElementById("profile-leadership").value.split(",").map(s => s.trim()).filter(Boolean);
+      const bio = document.getElementById("profile-bio").value;
+
+      const profile = { name, grade, achievements, leadership_roles: leadership, bio };
+
+      try {
+        const response = await fetch(`/students/${encodeURIComponent(email)}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(profile)
+        });
+        const result = await response.json();
+        if (response.ok) {
+          profileMessage.textContent = result.message;
+          profileMessage.className = "success";
+          profileMessage.classList.remove("hidden");
+          setTimeout(() => profileMessage.classList.add("hidden"), 5000);
+        } else {
+          profileMessage.textContent = result.detail || "An error occurred";
+          profileMessage.className = "error";
+          profileMessage.classList.remove("hidden");
+        }
+      } catch (error) {
+        profileMessage.textContent = "Failed to save profile. Please try again.";
+        profileMessage.className = "error";
+        profileMessage.classList.remove("hidden");
+      }
+    });
+  }
+
   // Initialize app
   fetchActivities();
 });

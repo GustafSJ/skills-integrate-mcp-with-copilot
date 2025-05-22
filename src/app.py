@@ -77,6 +77,23 @@ activities = {
     }
 }
 
+# In-memory student database
+students = {
+    # Example student for demonstration
+    "emma@mergington.edu": {
+        "name": "Emma Thompson",
+        "grade": "11",
+        "achievements": [
+            "Math Olympiad Winner",
+            "Chess Club Champion"
+        ],
+        "leadership_roles": [
+            "Chess Club President"
+        ],
+        "bio": "Passionate about math, chess, and helping others learn."
+    }
+    # Add more students as needed
+}
 
 @app.get("/")
 def root():
@@ -130,3 +147,17 @@ def unregister_from_activity(activity_name: str, email: str):
     # Remove student
     activity["participants"].remove(email)
     return {"message": f"Unregistered {email} from {activity_name}"}
+
+@app.get("/students/{email}")
+def get_student_profile(email: str):
+    """Get a student's profile by email"""
+    student = students.get(email)
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+    return student
+
+@app.post("/students/{email}")
+def update_student_profile(email: str, profile: dict):
+    """Update or create a student's profile"""
+    students[email] = profile
+    return {"message": f"Profile for {email} updated."}

@@ -39,6 +39,39 @@
         </form>
         <div id="message" class="hidden"></div>
       </section>
+
+      <section id="student-profile-container">
+        <h3>Student Profile</h3>
+        <form id="student-profile-form">
+          <div class="form-group">
+            <label for="profile-email">Student Email:</label>
+            <input type="email" id="profile-email" required placeholder="your-email@mergington.edu" />
+          </div>
+          <div class="form-group">
+            <label for="profile-name">Name:</label>
+            <input type="text" id="profile-name" required placeholder="Full Name" />
+          </div>
+          <div class="form-group">
+            <label for="profile-grade">Grade:</label>
+            <input type="text" id="profile-grade" required placeholder="e.g. 11" />
+          </div>
+          <div class="form-group">
+            <label for="profile-achievements">Achievements (comma separated):</label>
+            <input type="text" id="profile-achievements" placeholder="e.g. Math Olympiad Winner, Chess Club Champion" />
+          </div>
+          <div class="form-group">
+            <label for="profile-leadership">Leadership Roles (comma separated):</label>
+            <input type="text" id="profile-leadership" placeholder="e.g. Chess Club President" />
+          </div>
+          <div class="form-group">
+            <label for="profile-bio">Short Bio:</label>
+            <input type="text" id="profile-bio" placeholder="A few words about yourself" />
+          </div>
+          <button type="submit">Save Profile</button>
+        </form>
+        <div id="profile-message" class="hidden"></div>
+        <div id="profile-display" class="hidden"></div>
+      </section>
     </main>
 
     <footer>
